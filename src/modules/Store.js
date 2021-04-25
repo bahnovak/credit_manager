@@ -57,10 +57,13 @@ class Store {
     this.updateLocalStorage();
   }
 
-  deliteCredit(value) {
-    this.creditList = this.creditList.filter((element) => element.name !== value);
-    this.creditPayments = createArrayPayments(this.creditList);
-    this.updateLocalStorage();
+  deleteCredit(context, callback) {
+    return (value) => {
+      context.creditList = context.creditList.filter((element) => element.name !== value);
+      context.creditPayments = createArrayPayments(context.creditList);
+      context.updateLocalStorage();
+      callback();
+    };
   }
 }
 
