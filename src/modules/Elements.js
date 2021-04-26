@@ -8,8 +8,9 @@ class Elements {
     this.formButtonAdd = document.querySelector('.form__button_add');
     this.information = document.querySelector('.information');
     this.creditList = document.querySelector('.credit__list');
-    this.creditPayments = document.querySelector('.credit__payments');
-    this.creditBalance = document.querySelector('.credit__balance');
+    this.creditPayments = document.querySelector('.credit__payments__value');
+    this.creditBalance = document.querySelector('.credit__balance__value');
+    this.creditAcceptButton = document.querySelector('.credit__accept');
   }
 
   getData() {
@@ -42,6 +43,14 @@ class Elements {
     this.formName.value = '';
     this.formPercent.value = '';
     this.formTime.value = '';
+  }
+
+  clickAccept(flag) {
+    if (flag) {
+      this.creditAcceptButton.innerHTML = 'Редактировать';
+    } else {
+      this.creditAcceptButton.innerHTML = 'Подтвердить кредиты';
+    }
   }
 }
 

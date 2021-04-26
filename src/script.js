@@ -19,11 +19,14 @@ class App {
       elements.clearCreditList();
       store.creditList.forEach((element) => {
         createElements.createNewCreditElement(elements.creditList, element,
-          store.deleteCredit(store, context.render(context)));
+          store.deleteCredit(store, context.render(context)), store.isBlock);
       });
       createElements.createPayments(elements.creditPayments,
         store.creditPayments, store.toPay(store, context.render(context)));
       elements.creditBalance.innerHTML = store.getBalance();
+      elements.formButtonAdd.disabled = store.isBlock;
+      elements.creditBalance.innerHTML = store.getBalance();
+      elements.clickAccept(store.isBlock);
     };
   }
 
@@ -46,28 +49,21 @@ class App {
       if (store.checkName(elements.getData().name) || !this.checkData(elements.getData())) {
         createElements.createErrorInformation(elements.information);
       } else {
-        createElements.createNewCreditElement(elements.creditList,
-          elements.getData(), store.deleteCredit(store, this.render(this)));
-
         store.setData(elements.getData());
-        elements.clearPayments();
-        createElements.createPayments(elements.creditPayments,
-          store.creditPayments, store.toPay(store, this.render(this)));
         elements.clearData();
+        this.render(this)();
       }
-      elements.creditBalance.innerHTML = store.getBalance();
+    });
+
+    elements.creditAcceptButton.addEventListener('click', () => {
+      store.setIsBlock();
+      this.render(this)();
     });
   }
 
   init() {
-    store.creditList.forEach((element) => {
-      createElements.createNewCreditElement(elements.creditList, element,
-        store.deleteCredit(store, this.render(this)));
-    });
-    createElements.createPayments(elements.creditPayments,
-      store.creditPayments, store.toPay(store, this.render(this)));
+    this.render(this)();
     this.setHandlers();
-    elements.creditBalance.innerHTML = store.getBalance();
   }
 }
 

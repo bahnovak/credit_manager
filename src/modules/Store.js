@@ -33,12 +33,14 @@ class Store {
   constructor() {
     this.creditList = [];
     this.creditPayments = [];
+    this.isBlock = false;
   }
 
   updateLocalStorage() {
     localStorage.store = JSON.stringify({
       creditList: this.creditList,
       creditPayments: this.creditPayments,
+      isBlock: this.isBlock,
     });
   }
 
@@ -48,12 +50,18 @@ class Store {
     } else {
       this.creditList = JSON.parse(localStorage.store).creditList;
       this.creditPayments = JSON.parse(localStorage.store).creditPayments;
+      this.isBlock = JSON.parse(localStorage.store).isBlock;
     }
   }
 
   setData(data) {
     this.creditList = [...this.creditList, createCreditObject(data)];
     this.creditPayments = createArrayPayments(this.creditList);
+    this.updateLocalStorage();
+  }
+
+  setIsBlock() {
+    this.isBlock = !this.isBlock;
     this.updateLocalStorage();
   }
 
@@ -88,6 +96,5 @@ class Store {
 
 const store = new Store();
 store.initStore();
-console.log(store.getBalance());
 
 export default store;

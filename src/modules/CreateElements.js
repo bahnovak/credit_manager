@@ -2,23 +2,41 @@ import calculatePayments from './calculatePayments';
 
 class CreateElements {
   createInformationAboutCredit(data) {
+    const payment = calculatePayments(data.sum, data.time, data.percent);
     const element = document.createElement('div');
     element.classList.add('info');
 
+    const infoPayment = document.createElement('div');
+    infoPayment.classList.add('info__payment');
+
+    const infoTotal = document.createElement('div');
+    infoTotal.classList.add('info__total');
+
     const paymentsElement = document.createElement('div');
-    paymentsElement.classList.add('info__payments');
-    paymentsElement.innerHTML = calculatePayments(data.sum, data.time, data.percent);
+    paymentsElement.classList.add('info__payment__value');
+    paymentsElement.innerHTML = payment;
 
     const descriptionElement = document.createElement('div');
-    descriptionElement.classList.add('info__description');
-    descriptionElement.innerHTML = 'Ежемесячная выплата составит: ';
+    descriptionElement.classList.add('info__payment__description');
+    descriptionElement.innerHTML = 'Ежемесячный платеж составит: ';
 
-    element.append(descriptionElement, paymentsElement);
+    infoPayment.append(descriptionElement, paymentsElement);
+
+    const totalDescription = document.createElement('div');
+    totalDescription.classList.add('info__total_description');
+    totalDescription.innerHTML = 'Выплата составит: ';
+
+    const totalValue = document.createElement('div');
+    totalValue.classList.add('info__total_value');
+    totalValue.innerHTML = payment * data.time;
+
+    infoTotal.append(totalDescription, totalValue);
+    element.append(infoPayment, infoTotal);
 
     return element;
   }
 
-  createNewCreditElement(parent, data, callback) {
+  createNewCreditElement(parent, data, callback, flag) {
     const element = document.createElement('div');
     element.classList.add('credit__list__item');
 
@@ -28,30 +46,54 @@ class CreateElements {
 
     const sumElement = document.createElement('div');
     sumElement.classList.add('credit__list__item__sum');
-    sumElement.innerHTML = data.sum;
+
+    const sumElementDescription = document.createElement('div');
+    sumElementDescription.classList.add('credit__list__item__sum__description');
+    sumElementDescription.innerHTML = 'Сумма:';
+
+    const sumElementValue = document.createElement('div');
+    sumElementValue.classList.add('credit__list__item__sum__value');
+    sumElementValue.innerHTML = data.sum;
+
+    sumElement.append(sumElementDescription, sumElementValue);
 
     const timeElement = document.createElement('div');
     timeElement.classList.add('credit__list__item__time');
-    timeElement.innerHTML = data.time;
+
+    const timeElementDescription = document.createElement('div');
+    timeElementDescription.classList.add('credit__list__item__time__description');
+    timeElementDescription.innerHTML = 'Срок:';
+
+    const timeElementValue = document.createElement('div');
+    timeElementValue.classList.add('credit__list__item__time__value');
+    timeElementValue.innerHTML = data.time;
+
+    timeElement.append(timeElementDescription, timeElementValue);
 
     const percentElement = document.createElement('div');
     percentElement.classList.add('credit__list__item__percent');
-    percentElement.innerHTML = data.percent;
 
-    const paymentsElement = document.createElement('div');
-    paymentsElement.classList.add('credit__list__item__payments');
-    paymentsElement.innerHTML = calculatePayments(data.sum, data.time, data.percent);
+    const percentElementDescription = document.createElement('div');
+    percentElementDescription.classList.add('credit__list__item__percent__description');
+    percentElementDescription.innerHTML = 'Процент:';
+
+    const percentElementValue = document.createElement('div');
+    percentElementValue.classList.add('credit__list__item__percent__value');
+    percentElementValue.innerHTML = data.percent;
+
+    percentElement.append(percentElementDescription, percentElementValue);
 
     const buttonElement = document.createElement('button');
     buttonElement.classList.add('credit__list__item__button');
     buttonElement.innerHTML = 'Удалить';
+    buttonElement.disabled = flag;
     buttonElement.addEventListener('click', (event) => {
       event.preventDefault();
       callback(data.name);
     });
 
     element.append(nameElement,
-      sumElement, timeElement, percentElement, paymentsElement, buttonElement);
+      sumElement, timeElement, percentElement, buttonElement);
     parent.append(element);
   }
 
