@@ -55,13 +55,48 @@ class CreateElements {
     parent.append(element);
   }
 
-  createPayments(parent, array) {
-    array.forEach((element) => {
-      const div = document.createElement('div');
-      div.classList.add('credit__payments__item');
-      div.innerHTML = element;
-      parent.append(div);
+  createPayments(parent, array, callback) {
+    array.forEach((element, index) => {
+      const elem = document.createElement('div');
+      elem.classList.add('credit__payments__item');
+      const elemValue = document.createElement('div');
+      elemValue.classList.add('credit__payments__item__value');
+      elemValue.innerHTML = element.value;
+      if (element.isPaid) elemValue.style = 'text-decoration: line-through;';
+      elem.append(elemValue);
+      if (array.findIndex((el) => !el.isPaid) === index) {
+        const elemButton = document.createElement('button');
+        elemButton.classList.add('credit__payments__item__button');
+        elemButton.innerHTML = 'Оплачено';
+        elemButton.addEventListener('click', (event) => {
+          event.preventDefault();
+          callback();
+        });
+        elem.append(elemButton);
+      }
+      parent.append(elem);
     });
+  }
+
+  createErrorInformation(parent) {
+    const element = document.createElement('div');
+    element.classList.add('information__error');
+
+    const elementDescripton = document.createElement('div');
+    elementDescripton.classList.add('information__error__description');
+    elementDescripton.innerHTML = 'Некорректные данные. Название должно быть уникальным. Сумма, процент и срок должны содержать только положительные числовые значения.';
+
+    const elementButton = document.createElement('button');
+    elementButton.classList.add('information__error__button');
+    elementButton.innerHTML = 'Хорошо';
+    elementButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    });
+
+    parent.append(elementDescripton, elementButton);
   }
 }
 

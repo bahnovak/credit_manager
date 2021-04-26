@@ -12,10 +12,17 @@ const createArrayPayments = (array) => {
   let result = [];
   array.forEach((element) => {
     for (let i = 0; i < element.time; i += 1) {
+      const obj = {
+        value: 0,
+        isPaid: false,
+      };
       if (result[i]) {
-        const sum = result[i] + element.payments;
-        result[i] = +sum.toFixed(2);
-      } else { result = [...result, element.payments]; }
+        const sum = result[i].value + element.payments;
+        result[i].value = +sum.toFixed(2);
+      } else {
+        obj.value = element.payments;
+        result = [...result, obj];
+      }
     }
   });
 
@@ -44,13 +51,6 @@ class Store {
     }
   }
 
-  getStore() {
-    return {
-      creditList: this.creditList,
-      creditPayments: this.creditPayments,
-    };
-  }
-
   setData(data) {
     this.creditList = [...this.creditList, createCreditObject(data)];
     this.creditPayments = createArrayPayments(this.creditList);
@@ -65,9 +65,29 @@ class Store {
       callback();
     };
   }
+
+  checkName(name) {
+    return this.creditList.find((element) => element.name === name);
+  }
+
+  toPay(context, callback) {
+    return () => {
+      this.creditPayments.find((element) => !element.isPaid).isPaid = true;
+      context.updateLocalStorage();
+      callback();
+    };
+  }
+
+  getBalance() {
+    return this.creditPayments.reduce((acc, current) => {
+      if (!current.isPaid) return acc + current.value;
+      return acc;
+    }, 0).toFixed(2);
+  }
 }
 
 const store = new Store();
 store.initStore();
+console.log(store.getBalance());
 
 export default store;

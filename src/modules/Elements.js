@@ -9,6 +9,7 @@ class Elements {
     this.information = document.querySelector('.information');
     this.creditList = document.querySelector('.credit__list');
     this.creditPayments = document.querySelector('.credit__payments');
+    this.creditBalance = document.querySelector('.credit__balance');
   }
 
   getData() {
@@ -21,7 +22,7 @@ class Elements {
   }
 
   clearInformation() {
-    if (this.information.firstChild) this.information.removeChild(this.information.firstChild);
+    while (this.information.firstChild) this.information.removeChild(this.information.firstChild);
   }
 
   clearPayments() {
@@ -34,6 +35,13 @@ class Elements {
     while (this.creditList.firstChild) {
       this.creditList.removeChild(this.creditList.firstChild);
     }
+  }
+
+  clearData() {
+    this.formSum.value = '';
+    this.formName.value = '';
+    this.formPercent.value = '';
+    this.formTime.value = '';
   }
 }
 
