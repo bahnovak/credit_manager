@@ -1,1 +1,1 @@
-[DEMO](credit-manager-bn.netlify.app)
+[DEMO](https://credit-manager-bn.netlify.app/)
