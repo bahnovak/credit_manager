@@ -1,0 +1,34 @@
+.form__name {
+    grid-area: form__name;
+}
+
+.form__sum {
+    grid-area: form__sum;
+}
+
+.form__time {
+    grid-area: form__time;
+}
+
+.form__percent {
+    grid-area: form__percent;
+}
+
+.form__button_calc {
+    grid-area: form__button_calc;
+}
+
+.form__button_add {
+    grid-area: form__button_add;
+}
+
+.form {
+    grid-area: form;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "form__name form__sum form__percent form__time"
+        "form__button_calc form__button_calc form__button_add form__button_add";
+    gap: 5px 5px;    
+}

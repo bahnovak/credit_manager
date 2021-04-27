@@ -49,7 +49,7 @@ class CreateElements {
 
     const sumElementDescription = document.createElement('div');
     sumElementDescription.classList.add('credit__list__item__sum__description');
-    sumElementDescription.innerHTML = 'Сумма:';
+    sumElementDescription.innerHTML = 'Сумма (р): ';
 
     const sumElementValue = document.createElement('div');
     sumElementValue.classList.add('credit__list__item__sum__value');
@@ -62,7 +62,7 @@ class CreateElements {
 
     const timeElementDescription = document.createElement('div');
     timeElementDescription.classList.add('credit__list__item__time__description');
-    timeElementDescription.innerHTML = 'Срок:';
+    timeElementDescription.innerHTML = 'Срок (мес): ';
 
     const timeElementValue = document.createElement('div');
     timeElementValue.classList.add('credit__list__item__time__value');
@@ -75,7 +75,7 @@ class CreateElements {
 
     const percentElementDescription = document.createElement('div');
     percentElementDescription.classList.add('credit__list__item__percent__description');
-    percentElementDescription.innerHTML = 'Процент:';
+    percentElementDescription.innerHTML = 'Процент (%): ';
 
     const percentElementValue = document.createElement('div');
     percentElementValue.classList.add('credit__list__item__percent__value');
@@ -130,7 +130,7 @@ class CreateElements {
 
     const elementButton = document.createElement('button');
     elementButton.classList.add('information__error__button');
-    elementButton.innerHTML = 'Хорошо';
+    elementButton.innerHTML = 'Ок';
     elementButton.addEventListener('click', (event) => {
       event.preventDefault();
       while (parent.firstChild) {
