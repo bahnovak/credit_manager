@@ -97,7 +97,7 @@ class CreateElements {
     parent.append(element);
   }
 
-  createPayments(parent, array, callback) {
+  createPayments(parent, array, callback, flag) {
     array.forEach((element, index) => {
       const elem = document.createElement('div');
       elem.classList.add('credit__payments__item');
@@ -115,6 +115,7 @@ class CreateElements {
           callback();
         });
         elem.append(elemButton);
+        elemButton.disabled = !flag;
       }
       parent.append(elem);
     });

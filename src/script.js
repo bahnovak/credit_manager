@@ -22,7 +22,7 @@ class App {
           store.deleteCredit(store, context.render(context)), store.isBlock);
       });
       createElements.createPayments(elements.creditPayments,
-        store.creditPayments, store.toPay(store, context.render(context)));
+        store.creditPayments, store.toPay(store, context.render(context)), store.isBlock);
       elements.creditBalance.innerHTML = store.getBalance();
       elements.formButtonAdd.disabled = store.isBlock;
       elements.creditBalance.innerHTML = store.getBalance();
