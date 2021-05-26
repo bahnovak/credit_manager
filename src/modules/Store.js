@@ -36,7 +36,7 @@ class Store {
     this.isBlock = false;
   }
 
-  updateLocalStorage() {
+  updateLocalStorage() { // Обновление данных в localStorage
     localStorage.store = JSON.stringify({
       creditList: this.creditList,
       creditPayments: this.creditPayments,
@@ -44,7 +44,7 @@ class Store {
     });
   }
 
-  initStore() {
+  initStore() { // Иницилизация store
     if (!localStorage.store) {
       this.updateLocalStorage();
     } else {
@@ -54,18 +54,18 @@ class Store {
     }
   }
 
-  setData(data) {
+  setData(data) { // Обновление данных
     this.creditList = [...this.creditList, createCreditObject(data)];
     this.creditPayments = createArrayPayments(this.creditList);
     this.updateLocalStorage();
   }
 
-  setIsBlock() {
+  setIsBlock() { // Установка флага режима редактирования
     this.isBlock = !this.isBlock;
     this.updateLocalStorage();
   }
 
-  deleteCredit(context, callback) {
+  deleteCredit(context, callback) { // Удалить кредит
     return (value) => {
       context.creditList = context.creditList.filter((element) => element.name !== value);
       context.creditPayments = createArrayPayments(context.creditList);
@@ -74,11 +74,11 @@ class Store {
     };
   }
 
-  checkName(name) {
+  checkName(name) { // Проверка на уникальное имя
     return this.creditList.find((element) => element.name === name);
   }
 
-  toPay(context, callback) {
+  toPay(context, callback) { // Установка оплаченного платежа
     return () => {
       this.creditPayments.find((element) => !element.isPaid).isPaid = true;
       context.updateLocalStorage();
@@ -86,7 +86,7 @@ class Store {
     };
   }
 
-  getBalance() {
+  getBalance() { // Получить остаток по кредитам
     return this.creditPayments.reduce((acc, current) => {
       if (!current.isPaid) return acc + current.value;
       return acc;
