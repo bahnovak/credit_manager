@@ -13,7 +13,7 @@ class Elements {
     this.creditAcceptButton = document.querySelector('.credit__accept');
   }
 
-  getData() {
+  getData() { // получить данные из формы
     return {
       sum: this.formSum.value,
       name: this.formName.value,
@@ -45,7 +45,7 @@ class Elements {
     this.formTime.value = '';
   }
 
-  clickAccept(flag) {
+  clickAccept(flag) { // изменение кнопки редактировать/Подтвердить кредиты
     if (flag) {
       this.creditAcceptButton.innerHTML = 'Редактировать';
     } else {

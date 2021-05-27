@@ -1,7 +1,7 @@
 import calculatePayments from './calculatePayments';
 
 class CreateElements {
-  createInformationAboutCredit(data) {
+  createInformationAboutCredit(data) { // создание блока информации
     const payment = calculatePayments(data.sum, data.time, data.percent);
     const element = document.createElement('div');
     element.classList.add('info');
@@ -36,7 +36,7 @@ class CreateElements {
     return element;
   }
 
-  createNewCreditElement(parent, data, callback, flag) {
+  createNewCreditElement(parent, data, callback, flag) { // создание нового кредита
     const element = document.createElement('div');
     element.classList.add('credit__list__item');
 

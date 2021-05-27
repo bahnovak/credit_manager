@@ -4,7 +4,7 @@ import elements from './modules/Elements';
 import createElements from './modules/CreateElements';
 
 class App {
-  checkData(data) {
+  checkData(data) { // проверка на корректность данных
     if (Number(data.sum) > 0
     && Number(data.time) > 0
     && Number(data.percent) > 0) {
@@ -13,7 +13,7 @@ class App {
     return false;
   }
 
-  render(context) {
+  render(context) { // Отрисовка приложения
     return () => {
       elements.clearPayments();
       elements.clearCreditList();
@@ -30,7 +30,7 @@ class App {
     };
   }
 
-  setHandlers() {
+  setHandlers() { // установка обработчиков событий
     elements.formButtonCalc.addEventListener('click', (elem) => {
       elem.preventDefault();
       elements.clearInformation();
@@ -61,7 +61,7 @@ class App {
     });
   }
 
-  init() {
+  init() { // инициализация приложения
     this.render(this)();
     this.setHandlers();
   }
